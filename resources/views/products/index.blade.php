@@ -5,14 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
-            @foreach($categories as $cat)
+            @foreach($products as $prod)
 
                 <div class="card my-4">
-                    <div class="card-header">{{ $cat->name }}</div>
+                    <div class="card-header">{{ $prod->name }}</</div>
 
-                    <a href='products/{{ $cat->id }}'>
+                    <a href='{{ $prod->id }}'>
                         <div class="card-body">
-                            <img src="{{ $cat->image_url }}" style='width:100px;'>
+                            <img src="{{ $prod->image_url }}" style='width:100px;'>
                         </div>
                     </a>
 

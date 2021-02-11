@@ -10,7 +10,6 @@ class CartController extends Controller
     public function test(){
         $cart = new Cart();
 
-
         $session = session()->all();
 
         return view('cart.index', ['session' => $session]);
