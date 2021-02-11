@@ -25,4 +25,6 @@ Route::get('/category', 'CategoryController@index');
 
 Route::get('/products/{id}', 'ProductsController@index');
 
+Route::get('products/product/{id}', 'ProductController@index');
+
 Route::get('/session', 'CartController@test');

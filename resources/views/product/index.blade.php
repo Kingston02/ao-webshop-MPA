@@ -8,14 +8,12 @@
             @foreach($products as $prod)
 
                 <div class="card my-4">
-                    <div class="card-header">{{ $prod->name }}</</div>
 
-                    <a href='product/{{ $prod->id }}'>
-                        <div class="card-body">
-                            <img src="{{ $prod->image_url }}" style='width:100px;'>
-                        </div>
-                    </a>
-
+                    <img src="{{ $prod->image_url }}" style='width:300px;'>
+                    <h1>{{ $prod->name }}</h1>
+                    <p>{{ $prod->description }}</p>
+                    <h1>{{ $prod->price }}</h1>
+                    <h1>{{ $prod->price }}</h1>
                 </div>
 
             @endforeach
