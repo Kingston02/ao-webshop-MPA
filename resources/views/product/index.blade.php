@@ -14,7 +14,7 @@
                     <p>{{ $prod->description }}</p>
                     <h1>€{{ $prod->price }},-</h1>
                     
-                    <button class="btn btn-primary">In winkekwagen</button>
+                    <button >In winkekwagen</button>
                 </div>
 
             @endforeach
