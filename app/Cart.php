@@ -2,22 +2,34 @@
 
 namespace App;
 
-class Cart
+class Cart 
 {
-    private $items = [];
 
-    public function __construct(){
+    public $items = null;
+    public $totalQty = 0;
+    public $totalprice = 0;
 
+    public function _construct($oldCart){
 
-        if( ! session()->has('cart')){
-            // maak nieuwe cart
-            session(['cart' => [] ]);
-            session()->save();
-        } else {
-            $this->items = session('cart');
+        if ($oldCart) {
+            $this->items = $oldCart->items;         
+            $this->totalQty = $oldCart->totalQty;           
+            $this->totalprice = $oldCart->totalprice;           
         }
+    }
 
-        #dd(session()->all());
-        
+    public function add($item,$id){
+        $storedItem = ['qty'=>0, 'price' =>$item->price, 'item' ->$item->item];
+
+        if ($this->items) {
+            if (array_key_exists($id,$this->items)) {
+                $storedItem = $this->items[$id];
+            }
+        }
+        $storedItem['qty']++;
+        $storedItem['price'] = $item->price * $storedItem['qty'];
+        $this->items[$id] = $storedItem; 
+        $this->totalQty++;
+        $this->totalprice += $item->price; 
     }
 }
