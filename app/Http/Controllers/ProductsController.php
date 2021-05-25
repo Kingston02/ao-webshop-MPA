@@ -11,11 +11,5 @@ class ProductsController extends Controller
 
         return view('products.index', ['products' => $products]);
     }
-    public function addToCart($id){
-        $product = products::all()->where('id', $id);
 
-        $product_price = $product->price;
-
-        return view('cart.index', ['session' => $product]);
-    }
 }
