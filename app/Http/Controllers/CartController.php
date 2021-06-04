@@ -14,15 +14,8 @@ class CartController extends Controller
         return view('cart.index', ['products' => $product]);
     }
 
-    /*public function addToCart($id){
-        $product = products::all()->where('id', $id);
 
-        $product_price = $product;
-
-        return view('cart.index', ['session' => $product]);
-    }*/
-
-    public function getCart(Request $request){
+    public function getCart($request){
         $cart = $request->session()->all();
         return view('cart.index', ['session' => $cart]);
     }

@@ -6,15 +6,28 @@ use App\Product;
 class Cart 
 {
 
-    private $items;
+    private $session;
 
-    public function __construct(Request $request){
-        if($request->session()){
-            // Bestaat al
-        } else {
-            $request->session()->put($items);
-            session(['item' => $items]);
-        }
+    public function __construct($request){
+        $this->session = $request->session();
     }
 
+    public function getSession($request){
+        $sessionItems = $request->session()->all();
+
+        return $sessionItems;
+
+    }
+
+    public function addToCart($request){
+        $request->session()->push('items', 'testItem');
+    }
+
+
+    public function refreshCart($request){
+        $request->session()->flush();
+    }
+
+
 }
+
