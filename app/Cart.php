@@ -2,6 +2,9 @@
 
 namespace App;
 use App\Product;
+use Illuminate\Http\Request;
+use App\Cart;
+use App\Products;
 
 class Cart 
 {
@@ -12,8 +15,12 @@ class Cart
         $this->session = $request->session();
     }
 
-    public function getSession($request){
+    public function getCart($request){
         $sessionItems = $request->session()->all();
+        $sessionCount = count($sessionData['products']);
+        echo 'er zijn'.$sessionCount.' producten gevonden';
+
+        //return $sessionData;
 
         return $sessionItems;
 
