@@ -17,7 +17,19 @@ class CartController extends Controller
         return view('cart.index');
     }
 
+    public function getCart($request){
+        
+        if($request->session()){
+            print_r($request->session()->all());
+            $sessionItems = $request->session()->all();
+            $sessionCount = count($sessionData['products']);
+            echo 'er zijn'.$sessionCount.' producten gevonden';
+        }
 
+        //return $sessionData;
 
+        return $sessionItems;
+
+    }
 
 }

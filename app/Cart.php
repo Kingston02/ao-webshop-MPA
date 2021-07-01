@@ -15,17 +15,6 @@ class Cart
         $this->session = $request->session();
     }
 
-    public function getCart($request){
-        $sessionItems = $request->session()->all();
-        $sessionCount = count($sessionData['products']);
-        echo 'er zijn'.$sessionCount.' producten gevonden';
-
-        //return $sessionData;
-
-        return $sessionItems;
-
-    }
-
     public function addToCart($request){
         $request->session()->push('items', 'testItem');
     }
