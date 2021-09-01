@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cart;
+use App\Products;
 
 class CartController extends Controller
 {
 
     public function index(Request $request){
         $cart = new Cart($request);
-        $cart->addToCart($request);
+        $sessionData = session()->all();
+        #$cart->addToCart($request);
         #$cart->clearCart($request);
         #$cart->getCart($request);
-        print_r($sessionData);
+        #print_r($sessionData);
         
         return view('cart.index');
     }
@@ -22,17 +24,33 @@ class CartController extends Controller
         print_r(session()->all());
     }
 
-    public function getCart($request){
+    public function getCart(){
         
         if(session()){
-            $sessionItems = session()->all();
+            $sessionAll = session()->all();
+            $sessionItems = $sessionAll['items'];
             print_r($sessionItems);
-            $sessionCount = count($sessionData['products']);
-            return 'er zijn'.$sessionCount.' producten gevonden';
+            #$sessionCount = count($sessionItems);
+
         }
 
-        return $sessionItems['url'];
+        $products = products::all()->where('id', 1);
+        return view('cart.index', ['items' => $products[0]]);
 
+    }
+
+    #function getItemInfo(){
+    #   
+    #    $products = products::all()->where('id', 1);
+    #    return view('cart.index', ['items' => $products[0]]);
+    #    // WHERE moet een Array compleet opzoeken met alle id's ander kan ik maar 1 per keer meesturen.
+    #}
+    
+
+    public function removeCart($request){
+
+        #delete uit array waar ID hetzelde is als Request
+        
     }
 
 }

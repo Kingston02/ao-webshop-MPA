@@ -31,8 +31,8 @@ Route::get('products/product/{id}', 'ProductController@index');
 
 Route::get('add-to-cart/{id}', 'CartController@addToCart');
 
-Route::get('/session', 'CartController@test');
+Route::get('/cart', 'CartController@getCart');
 
 Route::patch('update-cart', 'ProductsController@update');
 
-Route::delete('remove-from-cart', 'ProductsController@remove');
+Route::delete('remove-from-cart', 'CartController@removeCart');
