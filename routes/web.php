@@ -35,4 +35,4 @@ Route::get('/cart', 'CartController@getCart');
 
 Route::patch('update-cart', 'ProductsController@update');
 
-Route::delete('remove-from-cart', 'CartController@removeCart');
+Route::delete('remove-from-cart/{id}', 'CartController@removeCart');

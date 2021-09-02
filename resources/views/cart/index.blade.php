@@ -4,32 +4,23 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <div class="card my-4">
+                <div class="card-header">Winkelmandje:</</div>
 
-                <div class="card my-4">
-                    <div class="card-header">Session contents:</</div>
+                    @foreach($items as $item)
+                        <div class="card my-4" style='padding:40px;'>
+                            <ul>
+                                <img src="{{ $item->image_url }}" style='width:200px;position:relative;'>
+                                <h1>{{ $item->name }}</h1>
+                                <p>{{ $item->description }}</p>
+                                <p>€{{ $item->price }},-</p>
+                            </ul>
+                            <p class="btn-holder"><a href="{{ url('remove-from-cart/'.$item->id) }}" class="btn btn-danger btn-block text-center" role="button">Remove</a> </p>
+                        </div>
+                    @endforeach
 
-                    <div class="card-body">
-
-                        <ul>
-                        <!--
-
-                            <img src="" style='width:200px;position:relative;'>
-                            <h1>title</h1>
-                            <p>description</p>
-                            <h1>€prijs,-</h1>
--->
-                            <p class="btn-holder"><a href="{{ url('add-to-cart/'.$prod->id) }}" class="btn btn-danger btn-block text-center" role="button">Verwijderen</a> </p>
-                            </div>
-
-
-                        </ul>
-
-                        {{ $items }}
-
-
-                    </div>
                 </div>
-            
+            </div>
         </div>
     </div>
 </div>

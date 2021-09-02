@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cart;
@@ -20,27 +19,41 @@ class CartController extends Controller
     }
 
     public function addToCart($request){
+
+        #Om cart te legen
+        #session()->flush();
+        #VERWIJDER DIT!
+
+
         session()->push('items', $request);
-        print_r(session()->all());
+        #print_r(session()->all());
+        return view('auth.login');
     }
 
     public function getCart(){
+
+        $cartItems = [];
         
         if(session()){
             $sessionAll = session()->all();
             $sessionItems = $sessionAll['items'];
-            print_r($sessionItems);
+            #print_r($sessionItems);
             #$sessionCount = count($sessionItems);
 
+            $products = products::whereIn('id', $sessionItems)->get();
+
+            #$product = var_dump(json_decode($product, true));
+            
+            
+        } else {
+            $cartItems = null;
         }
 
-        $products = products::all()->where('id', 1);
-        return view('cart.index', ['items' => $products[0]]);
-
+        return view('cart.index', ['items' => $products]);
+        
     }
 
     #function getItemInfo(){
-    #   
     #    $products = products::all()->where('id', 1);
     #    return view('cart.index', ['items' => $products[0]]);
     #    // WHERE moet een Array compleet opzoeken met alle id's ander kan ik maar 1 per keer meesturen.
