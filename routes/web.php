@@ -33,6 +33,6 @@ Route::get('add-to-cart/{id}', 'CartController@addToCart');
 
 Route::get('/cart', 'CartController@getCart');
 
-Route::patch('update-cart', 'ProductsController@update');
+Route::get('update-cart', 'ProductsController@update');
 
-Route::delete('remove-from-cart/{id}', 'CartController@removeCart');
+Route::get('remove-from-cart/{id}', 'CartController@removeCart');
