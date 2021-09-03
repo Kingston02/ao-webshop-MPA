@@ -18,8 +18,14 @@ class CartController extends Controller
         return view('auth.login');
     }
 
+
+
+
+
     public function getCart(){
         $cartItems = [];
+        $priceArr = [];
+        $priceTot = 0;
         
         if(session()){
             $sessionAll = session()->all();
@@ -28,16 +34,32 @@ class CartController extends Controller
         } else {
             $products = null;
         }
+        foreach($products as $item){
+            array_push($priceArr, $item['price']);
+        }
 
-        echo $products;
-        return view('cart.index', ['items' => $products]);
+        foreach($priceArr as $price){
+            $priceTot += $price;
+        }
+
+        return view('cart.index', ['items' => $products, 'priceTot' => $priceTot]);
     }
 
+
+
+
+
     public function removeCart($request){
-        $sessionAll = session()->all()->remove($request);
-        return session()->all();
+        $sessionAll = session()->all()['items'];
+
+        foreach($sessionAll as $items){
+            if($items == $request){
+                session_unset($request);
+            }
+        }
+
+        return $sessionAll;
         #delete uit array waar ID hetzelde is als Request
         
     }
-
 }
