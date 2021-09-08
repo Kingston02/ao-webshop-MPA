@@ -55,14 +55,12 @@ class CartController extends Controller
             if($items == $request){
                 
                 #Moet speciefiek verwijder en niet flushe!
-                session()->flush();
+                #session()->flush();
                 ############
-
-                $idtje = $items;
+                session()->forget(0);
             }
         }
 
-        #print_r($idtje);
         #print_r($arrCount);
 
         return;
