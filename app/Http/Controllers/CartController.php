@@ -14,7 +14,8 @@ class CartController extends Controller
     }
 
     public function addToCart($request){
-        session()->push('items', $request);
+        $items = array('name'=>$request);
+        session()->push('items', $items);
         return view('auth.login');
     }
 
@@ -29,7 +30,7 @@ class CartController extends Controller
             $sessionItems = $sessionAll['items'];
             $products = products::whereIn('id', $sessionItems)->get();
         } else {
-            $products = null;
+            return view('auth.login');
         }
         foreach($products as $item){
             array_push($priceArr, $item['price']);
@@ -46,18 +47,29 @@ class CartController extends Controller
 
 
     public function removeCart($request){
-        $arrCount = -1;
-        $sessionAll = session()->all()['items'];
+
+        #session()->flush();
+        
+        $sessionAll = session()->all();
+
+        #print_r($sessionAll);
 
         foreach($sessionAll as $items){
-            $arrCount+=1;
-            print_r($arrCount);
             if($items == $request){
+
+                echo $items;
+
+                #session()->forget('name', $request);
+
+                #echo $request;
+
+                #$sessionAll[$request->id]["quantity"] = $request->quantity;
+                #echo $items;
                 
                 #Moet speciefiek verwijder en niet flushe!
                 #session()->flush();
                 ############
-                session()->forget(0);
+                #$request->session()->forget('items');
             }
         }
 
