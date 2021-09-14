@@ -14,7 +14,8 @@ class CartController extends Controller
     }
 
     public function addToCart($request){
-        $items = array('name'=>$request);
+        $keyId = 'itemId'.$request;
+        $items = array($keyId=>$request);
         session()->push('items', $items);
         return view('auth.login');
     }
@@ -50,16 +51,16 @@ class CartController extends Controller
 
         #session()->flush();
         
-        $sessionAll = session()->all();
+        $sessionAll = session()->all()['items'];
 
-        #print_r($sessionAll);
+        print_r($sessionAll);
 
         foreach($sessionAll as $items){
             if($items == $request){
 
                 echo $items;
 
-                #session()->forget('name', $request);
+                session()->forget('name', $request);
 
                 #echo $request;
 
