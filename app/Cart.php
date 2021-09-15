@@ -16,11 +16,15 @@ class Cart
     }
 
     public function addToCart($request){
-        $request->session()->push('items', 'testItem');
+
+        $keyId = 'itemId'.$request;
+        $items = array($keyId=>$request);
+        session()->push('items', $items);
+        
     }
 
 
-    public function refreshCart($request){
+    public function removeCart($request){
         $request->session()->flush();
     }
 

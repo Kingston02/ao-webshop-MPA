@@ -13,11 +13,10 @@ class CartController extends Controller
         return view('cart.index');
     }
 
-    public function addToCart($request){
-        $keyId = 'itemId'.$request;
-        $items = array($keyId=>$request);
-        session()->push('items', $items);
-        return view('auth.login');
+    public function addToCart($id){
+        $cart = new Cart($id);
+        $cart->addToCart($id);
+        return redirect()->route('cart');
     }
 
     public function getCart(){
@@ -47,36 +46,12 @@ class CartController extends Controller
 
 
 
-    public function removeCart($request){
+    public function removeCart($id){
 
-        #session()->flush();
+        $cart = new Cart($id);
+        $cart->removeCart($id);
         
-        $sessionAll = session()->all()['items'];
-
-        print_r($sessionAll);
-
-        foreach($sessionAll as $items){
-            if($items == $request){
-
-                echo $items;
-
-                session()->forget('name', $request);
-
-                #echo $request;
-
-                #$sessionAll[$request->id]["quantity"] = $request->quantity;
-                #echo $items;
-                
-                #Moet speciefiek verwijder en niet flushe!
-                #session()->flush();
-                ############
-                #$request->session()->forget('items');
-            }
-        }
-
-        #print_r($arrCount);
-
-        return;
+        return redirect()->route('cart');
 
     }
 }
