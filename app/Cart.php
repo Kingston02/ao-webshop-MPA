@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 use App\Product;
 use Illuminate\Http\Request;
@@ -12,22 +11,24 @@ class Cart
     private $session;
 
     public function __construct($request){
-        $this->session = $request->session();
+        $this->session = session()->all();
     }
 
-    public function addToCart($request){
+    public function addToCart($id){
+        session()->push('items', $id);
+    }
 
-        $keyId = 'itemId'.$request;
-        $items = array($keyId=>$request);
-        session()->push('items', $items);
+    public function removeCart($id){
         
+        #session()->flush();
+        
+
+        print_r(session()->all());
+        return;
     }
 
-
-    public function removeCart($request){
-        $request->session()->flush();
+    public function updateCart($id){
+        #update aantal
     }
-
 
 }
-

@@ -16,7 +16,7 @@ class CartController extends Controller
     public function addToCart($id){
         $cart = new Cart($id);
         $cart->addToCart($id);
-        return redirect()->route('cart');
+        return redirect()->route('home');
     }
 
     public function getCart(){
@@ -42,16 +42,22 @@ class CartController extends Controller
         return view('cart.index', ['items' => $products, 'priceTot' => $priceTot]);
     }
 
-
-
-
+    public function updateCart($id){
+        $cart = new Cart($id);
+        $cart->updateCart($id);
+        return redirect()->route('home');
+    }
 
     public function removeCart($id){
 
         $cart = new Cart($id);
         $cart->removeCart($id);
+
+        return;
         
-        return redirect()->route('cart');
+        #return redirect()->route('home');
 
     }
+
+    
 }
