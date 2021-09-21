@@ -7,25 +7,31 @@ use App\Products;
 class CartController extends Controller
 {
 
-    public function index($productId){
-        $cart = new Cart($productId);
-        //$sessionData = session()->all();   
-        $cartItems = $cart->getCartItems();     
-        return view('cart.index', ['items' => $cartItems]);
+    public function index()
+    {
+        //Getting all the products that I created in my seeder, from my database
+        $products = Product::all();
+        $categories = Category::all();
+
+        // return view('index', [compact('products', $products), compact('categories', $categories)]);
+        return view('index', compact('products', $products), compact('categories', $categories));
+        // return view('index', compact('categories', $categories));
     }
 
     public function addToCart(Request $request, $productId){
         $product = Products::find($productId);
         $cart =  new Cart($request);
         $cart->addToCart($product, $product->id);
-        $request->session()->put('cart', $cart);
+        $request->session()->put('cart.index', $cart);
         return redirect()->route('home');
     }
 
-    public function getCart(){
-        $cart = new Cart();
-        $products = $cart->getCart();
-        return view('cart.index', ['items' => $products, 'priceTot' => $priceTot]);
+    public function getCart(Request $request) {
+        if (!$request->session()->has('cart')) {
+            return view('cart', ['products' => null]);
+        }
+        $cart =  new Cart($request);
+        return view('cart.index', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
     public function updateCart($productId){

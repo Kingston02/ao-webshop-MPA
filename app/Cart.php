@@ -17,7 +17,7 @@ class Cart
     public function __construct(Request $request)
         //constructor to set all values
     {
-
+        
         if($request->session()->has('cart') == True){
             $oldCart = $request->session()->get('cart');
         } else {
@@ -29,14 +29,12 @@ class Cart
             $this->totalQty = $oldCart->totalQty;
             $this->totalPrice = $oldCart->totalPrice;
         }
-
+        
         $this->save();
     }
 
     public function save() {
-        //function to save everything
-        //if in the cart, easier to change
-        //edit, done
+        //function to save cart
         if (count($this->items) > 0) {
             session()->put('cart', $this);
         } else {
