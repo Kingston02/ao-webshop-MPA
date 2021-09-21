@@ -7,12 +7,13 @@ use App\Products;
 
 class Cart
 {
-
-    private $session;
     public $sessionItems = [];
     public $sessionQty = 0;
     public $totalPrice = 0;
 
+    /**
+     * Check if the session. Check if cart array/items in session. If so, get items and store localluy in the cart, if not initialize ewmtpy local storage.
+     */
     public function __construct(Request $request)
         //constructor to set all values
     {
@@ -22,20 +23,42 @@ class Cart
         } else {
             $oldCart = null;
         }
-
+        
         if ($oldCart) {
             $this->items = $oldCart->items;
             $this->totalQty = $oldCart->totalQty;
             $this->totalPrice = $oldCart->totalPrice;
         }
-        #$this->save();
+
+        $this->save();
     }
 
-    public function addToCart($id){
-        session()->push('items', $id);
+    public function save() {
+        //function to save everything
+        //if in the cart, easier to change
+        //edit, done
+        if (count($this->items) > 0) {
+            session()->put('cart', $this);
+        } else {
+            session()->forget('cart');
+        }
     }
 
-    public function removeCart($id){
+    public function addToCart($item, $productId){
+        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
+        if ($this->items) {
+            if (array_key_exists($productId, $this->items)) {
+                $storedItem = $this->items[$productId];
+            }
+        }
+        $storedItem['qty']++;
+        $storedItem['price'] = $item->price * $storedItem['qty'];
+        $this->items[$productId] = $storedItem;
+        $this->totalQty++;
+        $this->totalPrice += $item->price;
+    }
+
+    public function removeCart($productId){
         
         #session()->flush();
         
@@ -43,8 +66,33 @@ class Cart
         return;
     }
 
-    public function updateCart($id){
+    public function getCart(){
+        $cartItems = [];
+        $priceArr = [];
+        $priceTot = 0;
+        
+        if(session()){
+            $sessionAll = session()->all();
+            $sessionItems = $sessionAll['items'];
+            $products = Product::whereIn('id', $sessionItems)->get();
+        } else {
+            return view('auth.login');
+        }
+        foreach($products as $item){
+            array_push($priceArr, $item['price']);
+        }
+        foreach($priceArr as $price){
+            $priceTot += $price;
+        }
+        return $products;
+    }
+
+    public function updateCart($productId){
         #update aantal
+    }
+    
+    private function pushToSession($productId){
+
     }
 
 }
