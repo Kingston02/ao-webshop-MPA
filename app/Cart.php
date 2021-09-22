@@ -25,8 +25,10 @@ class Cart
         }
         
         if ($oldCart) {
+            #session()->flush();
+            #dd($oldCart);
             $this->items = $oldCart->items;
-            $this->totalQty = $oldCart->totalQty;
+            $this->sessionQty = $oldCart->sessionQty;
             $this->totalPrice = $oldCart->totalPrice;
         }
         
