@@ -28,7 +28,7 @@ class CartController extends Controller
 
     public function getCart(Request $request) {
         if (!$request->session()->has('cart')) {
-            return view('cart', ['products' => null]);
+            return view('cart.index', ['products' => null]);
         }
         $cart =  new Cart($request);
         return view('cart.index', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);

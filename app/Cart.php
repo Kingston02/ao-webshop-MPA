@@ -7,7 +7,7 @@ use App\Products;
 
 class Cart
 {
-    public $sessionItems = [];
+    public $items = [];
     public $sessionQty = 0;
     public $totalPrice = 0;
 
@@ -33,14 +33,19 @@ class Cart
         $this->save();
     }
 
+
+    
     public function save() {
         //function to save cart
+
         if (count($this->items) > 0) {
             session()->put('cart', $this);
         } else {
             session()->forget('cart');
         }
     }
+
+
 
     public function addToCart($item, $productId){
         $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
@@ -52,7 +57,7 @@ class Cart
         $storedItem['qty']++;
         $storedItem['price'] = $item->price * $storedItem['qty'];
         $this->items[$productId] = $storedItem;
-        $this->totalQty++;
+        $this->sessionQty++;
         $this->totalPrice += $item->price;
     }
 
