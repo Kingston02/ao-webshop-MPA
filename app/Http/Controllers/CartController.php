@@ -26,6 +26,7 @@ class CartController extends Controller
      */
     public function addToCart(Request $request, $productId){
         $product = Products::find($productId);
+
         $cart =  new Cart($request);
         $cart->addToCart($product, $product->id);
         $request->session()->put('cart.index', $cart);
@@ -39,7 +40,7 @@ class CartController extends Controller
         if (!$request->session()->has('cart')) {
             return view('cart.index', ['products' => null]);
         }
-        $cart =  new Cart($request);
+        $cart = new Cart($request);
         $cart->getCart($cart->items, $cart->totalPrice);
         #dd($cart->items);
         return view('cart.index', ['items' => $cart->items, 'priceTot' => $cart->totalPrice]);

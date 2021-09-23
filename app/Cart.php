@@ -1,9 +1,8 @@
 <?php
 namespace App;
 use App\Product;
-use Illuminate\Http\Request;
-use App\Cart;
 use App\Products;
+use Illuminate\Http\Request;
 
 class Cart
 {
@@ -19,14 +18,21 @@ class Cart
     {
         
         if($request->session()->has('cart') == True){
+            
             $oldCart = $request->session()->get('cart');
+            dd($oldCart);
+            
+            #if($oldCart['index']){
+            #    $oldCart = $request->session()->get('cart')['index'];
+            #}
+            
         } else {
             $oldCart = null;
         }
         
         if ($oldCart) {
             #session()->flush();
-            dd($oldCart);
+            // dd($oldCart);
             $this->items = $oldCart->items;
             $this->sessionQty = $oldCart->sessionQty;
             $this->totalPrice = $oldCart->totalPrice;
@@ -49,7 +55,7 @@ class Cart
 
 
     public function addToCart($item, $productId){
-        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item, 'productId' => $productId];
+        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
         if ($this->items) {
             if (array_key_exists($productId, $this->items)) {
                 $storedItem = $this->items[$productId];
