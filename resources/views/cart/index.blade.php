@@ -15,9 +15,9 @@
                                 <p>{{ $item['item']['description'] }}</p>
                                 <p>€{{ $item['item']['price'] }},-</p>
                             </ul>
-                            $product
+
                             <div class="btn-group">
-                                <input type="number" id="quantity" name="quantity" min="1" max="100" value='1'>
+                                <input type="number" id="quantity" name="quantity" min="1" max="100" value='{{ $product["qty"] }}'>
                                 <a href="#" class="btn btn-primary">Update</a>
                                 <a href="{{ url('remove-from-cart/'.$item['item']['id']) }}" class="btn btn-danger">Remove</a>
                             </div>
