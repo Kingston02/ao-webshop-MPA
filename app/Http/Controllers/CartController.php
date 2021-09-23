@@ -40,6 +40,8 @@ class CartController extends Controller
             return view('cart.index', ['products' => null]);
         }
         $cart =  new Cart($request);
+        $cart->getCart($cart->items, $cart->totalPrice);
+        #dd($cart->items);
         return view('cart.index', ['items' => $cart->items, 'priceTot' => $cart->totalPrice]);
     }
 

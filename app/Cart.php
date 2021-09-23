@@ -39,7 +39,6 @@ class Cart
     
     public function save() {
         //function to save cart
-
         if (count($this->items) > 0) {
             session()->put('cart', $this);
         } else {
@@ -50,7 +49,7 @@ class Cart
 
 
     public function addToCart($item, $productId){
-        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
+        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item, 'productId' => $productId];
         if ($this->items) {
             if (array_key_exists($productId, $this->items)) {
                 $storedItem = $this->items[$productId];
@@ -65,31 +64,28 @@ class Cart
 
     public function removeCart($productId){
         
-        #session()->flush();
+        session()->flush();
         
         print_r(session()->all());
         return;
     }
 
-    public function getCart(){
-        $cartItems = [];
-        $priceArr = [];
-        $priceTot = 0;
-        
-        if(session()){
-            $sessionAll = session()->all();
-            $sessionItems = $sessionAll['items'];
-            $products = Product::whereIn('id', $sessionItems)->get();
+    public function getCart($itemsId, $totalPrice){
+
+        if(count($itemsId) > 0){
+            #dd(array_keys($itemsId));
+            $productIdArr = [];
+            foreach(array_keys($itemsId) as $productId){
+                array_push($productIdArr, $productId);
+            }
+            #dd($productIdArr);
+            $products = Product::whereIn('id', $productIdArr)->get();
+            #dd($products);
         } else {
-            return view('auth.login');
+            return view('home');
         }
-        foreach($products as $item){
-            array_push($priceArr, $item['price']);
-        }
-        foreach($priceArr as $price){
-            $priceTot += $price;
-        }
-        return $products;
+
+        return ['items' => $products, 'priceTot' => $totalPrice];
     }
 
     public function updateCart($productId){
