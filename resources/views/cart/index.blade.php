@@ -23,6 +23,7 @@
                             </div>
                         </div>
                     @endforeach
+                    
                     <hr>
                     <br>
                     <h3>Totaal prijs: €{{ $priceTot }},-</h3>

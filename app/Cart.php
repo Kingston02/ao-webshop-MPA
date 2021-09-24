@@ -20,7 +20,7 @@ class Cart
         if($request->session()->has('cart') == True){
             
             $oldCart = $request->session()->get('cart');
-            dd($oldCart);
+            #dd($oldCart);
             
             #if($oldCart['index']){
             #    $oldCart = $request->session()->get('cart')['index'];
@@ -40,7 +40,7 @@ class Cart
         
         $this->save();
     }
-
+    
 
     
     public function save() {
@@ -96,10 +96,6 @@ class Cart
 
     public function updateCart($productId){
         #update aantal
-    }
-    
-    private function pushToSession($productId){
-
     }
 
 }
