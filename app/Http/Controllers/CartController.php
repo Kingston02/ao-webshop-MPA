@@ -28,7 +28,6 @@ class CartController extends Controller
         $product = Products::find($productId);
         $cart =  new Cart($request);
         $cart->addToCart($product, $product->id);
-        $request->session()->put('cart.index', $cart);
         return redirect()->route('home');
     }
 

@@ -16,15 +16,11 @@ class Cart
     public function __construct(Request $request)
         //constructor to set all values
     {
-        
+        #session()->flush();
+        #dd($request->session());
         if($request->session()->has('cart') == True){
             
             $oldCart = $request->session()->get('cart');
-            #dd($oldCart);
-            
-            #if($oldCart['index']){
-            #    $oldCart = $request->session()->get('cart')['index'];
-            #}
             
         } else {
             $oldCart = null;
@@ -32,7 +28,7 @@ class Cart
         
         if ($oldCart) {
             #session()->flush();
-            // dd($oldCart);
+            #dd($oldCart);
             $this->items = $oldCart->items;
             $this->sessionQty = $oldCart->sessionQty;
             $this->totalPrice = $oldCart->totalPrice;
@@ -42,7 +38,9 @@ class Cart
     }
     
 
-    
+    /**
+     * Save func 
+     */
     public function save() {
         //function to save cart
         if (count($this->items) > 0) {
@@ -66,6 +64,9 @@ class Cart
         $this->items[$productId] = $storedItem;
         $this->sessionQty++;
         $this->totalPrice += $item->price;
+
+        $this->save();
+        
     }
 
     public function removeCart($productId){
