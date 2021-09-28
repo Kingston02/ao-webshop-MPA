@@ -47,7 +47,8 @@ class CartController extends Controller
     /**
      * Updatecart func
      */
-    public function updateCart($productId){
+    public function updateCart(Request $request, $productId, $qty){
+        dd($request);
         $cart = new Cart($productId);
         $cart->updateCart($productId);
         return redirect()->route('home');

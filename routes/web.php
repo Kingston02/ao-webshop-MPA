@@ -21,20 +21,22 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('category', 'CategoryController@index');
+Route::get('/category', 'CategoryController@index');
 
-Route::get('products/{id}', 'ProductsController@index');
+Route::get('/products/{productId}', 'ProductsController@index');
 
-Route::get('products/product/{id}', 'ProductController@index');
+Route::get('/products/product/{productId}', 'ProductController@index');
 
-Route::get('add-to-cart/{id}', 'CartController@addToCart');
+Route::get('/add-to-cart/{productId}', 'CartController@addToCart');
 
-Route::get('cart', 'CartController@getCart');
+Route::get('/cart', 'CartController@getCart');
 
-Route::get('filter/{categoryId}', 'ProductsController@filter');
+Route::get('/filter/{categoryId}', 'ProductsController@filter');
 
-Route::get('update-cart', 'ProductsController@update');
+Route::get('/update-cart/{csrf?}/{qty?}/{productId?}', 'CartController@updateCart')->name('update-cart');
 
-Route::get('remove-from-cart/{id}', 'CartController@removeCart');
+
+
+Route::get('/remove-from-cart/{productId}', 'CartController@removeCart');
