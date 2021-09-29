@@ -102,15 +102,13 @@ class Cart
         $priceTot = $this->items[$productId]['price'];
         $pricePs = $priceTot / $qtyOld;
         $newPrieTot = $pricePs * intval($qtyNew);
+        $this->totalPrice += $newPrieTot;
         $this->items[$productId]['price'] = $newPrieTot;
         $this->items[$productId]['qty'] = intval($qtyNew);
-        $this->items[$productId]['price'];
-        #dd($this->items[$productId]['qty']);
-        #dd($this);
-        #dd($this);
         
+
         $this->save();
-        
+        #dd($this);
     }
 
 }
