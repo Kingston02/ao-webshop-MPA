@@ -35,6 +35,6 @@ Route::get('/cart', 'CartController@getCart');
 
 Route::get('/filter/{categoryId}', 'ProductsController@filter');
 
-Route::get('/update-cart/{qty?}', 'CartController@updateCart')->name('update-cart');
+Route::get('/update-cart', 'CartController@updateCart')->name('update-cart');
 
 Route::get('/remove-from-cart/{productId}', 'CartController@removeCart');

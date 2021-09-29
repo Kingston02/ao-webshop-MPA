@@ -48,6 +48,7 @@ class Cart
         } else {
             session()->forget('cart');
         }
+        #dd($this);
     }
 
 
@@ -95,7 +96,20 @@ class Cart
         return ['items' => $products, 'priceTot' => $totalPrice];
     }
 
-    public function updateCart($productId, $qty){
+    public function updateCart($productId, $qtyNew){
+        
+        $qtyOld = $this->items[$productId]['qty'];
+        $priceTot = $this->items[$productId]['price'];
+        $pricePs = $priceTot / $qtyOld;
+        $newPrieTot = $pricePs * intval($qtyNew);
+        $this->items[$productId]['price'] = $newPrieTot;
+        $this->items[$productId]['qty'] = intval($qtyNew);
+        $this->items[$productId]['price'];
+        #dd($this->items[$productId]['qty']);
+        #dd($this);
+        #dd($this);
+        
+        $this->save();
         
     }
 
