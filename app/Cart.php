@@ -95,8 +95,8 @@ class Cart
         return ['items' => $products, 'priceTot' => $totalPrice];
     }
 
-    public function updateCart($productId){
-        #update aantal
+    public function updateCart($productId, $qty){
+        
     }
 
 }

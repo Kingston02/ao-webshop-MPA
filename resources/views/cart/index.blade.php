@@ -17,10 +17,10 @@
                             </ul>
 
                             <div class="btn-group">
-                                <form method="get" action="{{ route('update-cart') }}">
-                                    {{ csrf_field() }}
+                                <form method="GET" action="{{ route('update-cart') }}">
+                                {{csrf_field()}}
                                     <input type="number" id="quantity" name="qty" min="1" max="100" value="{{ $item['qty'] }}">
-                                    <input type="hidden" name="productId" value="{{ $item['item']['id'] }} }}">
+                                    <input type="hidden" name="productId" value="{{ $item['item']['id'] }}">
                                     <button type='submit' class="btn btn-primary">Update quantity</button>
                                 </form>
                                 <a href="{{ url('remove-from-cart/'.$item['item']['id']) }}" class="btn btn-danger">Remove Item</a>
