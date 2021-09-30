@@ -11,24 +11,17 @@ class Cart
     public $totalPrice = 0;
 
     /**
-     * Check if the session. Check if cart array/items in session. If so, get items and store localluy in the cart, if not initialize ewmtpy local storage.
+     * Check if cart items in session.
      */
     public function __construct(Request $request)
-        //constructor to set all values
     {
-        #session()->flush();
-        #dd($request->session());
         if($request->session()->has('cart') == True){
-            
             $oldCart = $request->session()->get('cart');
-            
         } else {
             $oldCart = null;
         }
         
         if ($oldCart) {
-            #session()->flush();
-            #dd($oldCart);
             $this->items = $oldCart->items;
             $this->sessionQty = $oldCart->sessionQty;
             $this->totalPrice = $oldCart->totalPrice;
@@ -37,22 +30,20 @@ class Cart
         $this->save();
     }
     
-
     /**
      * Save func 
      */
     public function save() {
-        //function to save cart
         if (count($this->items) > 0) {
             session()->put('cart', $this);
         } else {
             session()->forget('cart');
         }
-        #dd($this);
     }
 
-
-
+    /**
+     * Add a product to cart
+     */
     public function addToCart($item, $productId){
         $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
         if ($this->items) {
@@ -67,25 +58,20 @@ class Cart
         $this->totalPrice += $item->price;
 
         $this->save();
-        
     }
 
     /**
      * Get the items that 
      */
     public function getCart($itemsId, $totalPrice){
-
         if(count($itemsId) > 0){
-            #dd(array_keys($itemsId));
             $productIdArr = [];
             foreach(array_keys($itemsId) as $productId){
                 array_push($productIdArr, $productId);
             }
-            #dd($productIdArr);
             $products = Product::whereIn('id', $productIdArr)->get();
-            #dd($products);
         }
-
+        
         return ['items' => $products, 'priceTot' => $totalPrice];
     }
 
@@ -93,11 +79,10 @@ class Cart
      * Update qty from cart
      */
     public function updateCart($productId, $qtyNew){
-        
+
         $qtyOld = $this->items[$productId]['qty'];
         $priceTot = $this->items[$productId]['price'];
-
-        //ps
+        //Calculate price for this product qty
         $pricePs = $priceTot / $qtyOld;
         //oldcart qty * price
         $oldCartTot = $pricePs * $qtyOld;
@@ -108,7 +93,7 @@ class Cart
         $newPricingTot = $this->totalPrice + $newPrieTot;
         $this->items[$productId]['price'] = $newPrieTot;
         $this->items[$productId]['qty'] = intval($qtyNew);
-
+        //change total price to new generated total price
         $this->totalPrice = $newPricingTot;
 
         $this->save();
@@ -127,5 +112,4 @@ class Cart
 
         $this->save();
     }
-
 }

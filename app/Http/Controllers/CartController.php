@@ -7,22 +7,8 @@ use App\Products;
 class CartController extends Controller
 {
 
-    public function index()
-    {
-        /**
-         * Getting all the products en categories out of my db
-         */
-        $products = Product::all();
-        $categories = Category::all();
-
-        /**
-         * Return to Index view with Products and categories
-         */
-        return view('index', compact('products', $products), compact('categories', $categories));
-    }
-
     /**
-     * addToCart function send request and id
+     * addToCart function send request and productId
      */
     public function addToCart(Request $request, $productId){
         $product = Products::find($productId);
@@ -32,7 +18,7 @@ class CartController extends Controller
     }
 
     /**
-     * Get the products 
+     * getCart function get the products en return them with view to the cart
      */
     public function getCart(Request $request) {
         if (!$request->session()->has('cart')) {
@@ -45,7 +31,7 @@ class CartController extends Controller
     }
 
     /**
-     * Updatecart func
+     * Updatecart function uppdates the qty of a product
      */
     public function updateCart(Request $request){
         $qty = $request->input('qty');
@@ -56,20 +42,11 @@ class CartController extends Controller
     }
 
     /**
-     * removeCart func
+     * removeCart function removes a specifically product trough the product id 
      */
     public function removeCart(Request $request, $productId){
         $cart = new Cart($request);
         $cart->removeCart($productId);
         return redirect()->to('cart');
     }
- 
-    #public function filter($catId){
-    #    $cart = new Cart($catId);
-    #    $cart->filter($catId);
-        
-    #    return;
-    #}
-
-    
 }
