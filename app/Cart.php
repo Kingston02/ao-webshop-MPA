@@ -70,14 +70,6 @@ class Cart
         
     }
 
-    public function removeCart($productId){
-        
-        session()->flush();
-        
-        print_r(session()->all());
-        return;
-    }
-
     public function getCart($itemsId, $totalPrice){
 
         if(count($itemsId) > 0){
@@ -100,15 +92,30 @@ class Cart
         
         $qtyOld = $this->items[$productId]['qty'];
         $priceTot = $this->items[$productId]['price'];
+
+        //ps
         $pricePs = $priceTot / $qtyOld;
+        //oldcart qty * price
+        $oldCartTot = $pricePs * $qtyOld;
+        //newcart qty * price
         $newPrieTot = $pricePs * intval($qtyNew);
-        $this->totalPrice += $newPrieTot;
+        $removeCartTot = $this->totalPrice -= $oldCartTot;
+        //totaal price + totaal product qty
+        $newPricingTot = $this->totalPrice + $newPrieTot;
         $this->items[$productId]['price'] = $newPrieTot;
         $this->items[$productId]['qty'] = intval($qtyNew);
-        
+
+        $this->totalPrice = $newPricingTot;
 
         $this->save();
-        #dd($this);
+    }
+
+    public function removeCart($productId){
+        
+        session()->flush();
+        
+        print_r(session()->all());
+        return;
     }
 
 }
