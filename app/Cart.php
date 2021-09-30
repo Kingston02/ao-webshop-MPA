@@ -84,8 +84,6 @@ class Cart
             #dd($productIdArr);
             $products = Product::whereIn('id', $productIdArr)->get();
             #dd($products);
-        } else {
-            return view('home');
         }
 
         return ['items' => $products, 'priceTot' => $totalPrice];
