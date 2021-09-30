@@ -70,6 +70,9 @@ class Cart
         
     }
 
+    /**
+     * Get the items that 
+     */
     public function getCart($itemsId, $totalPrice){
 
         if(count($itemsId) > 0){
@@ -88,6 +91,9 @@ class Cart
         return ['items' => $products, 'priceTot' => $totalPrice];
     }
 
+    /**
+     * Update qty from cart
+     */
     public function updateCart($productId, $qtyNew){
         
         $qtyOld = $this->items[$productId]['qty'];
@@ -110,10 +116,18 @@ class Cart
         $this->save();
     }
 
+    /**
+     * Remove item from cart
+     */
     public function removeCart($productId){
-        
-        print_r(session()->all());
-        return;
+        $qty = $this->items[$productId]['qty'];
+        $price = $this->items[$productId]['price'];
+        $itemTotPrice = $qty * $price;
+        $this->totalPrice -= $itemTotPrice;
+        unset($this->items[$productId]);
+        $this->sessionQty -= 1;
+
+        $this->save();
     }
 
 }

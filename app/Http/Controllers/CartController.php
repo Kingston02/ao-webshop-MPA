@@ -58,12 +58,10 @@ class CartController extends Controller
     /**
      * removeCart func
      */
-    public function removeCart($productId){
-        $cart = new Cart($productId);
+    public function removeCart(Request $request, $productId){
+        $cart = new Cart($request);
         $cart->removeCart($productId);
-
-        return;
-        #return redirect()->route('home');
+        return redirect()->route('home');
     }
  
     #public function filter($catId){

@@ -23,7 +23,7 @@
                                     <input type="hidden" name="productId" value="{{ $item['item']['id'] }}">
                                     <button type='submit' class="btn btn-primary">Update quantity</button>
                                 </form>
-                                <a href="{{ url('remove-from-cart/'.$item['item']['id']) }}" class="btn btn-danger">Remove Item</a>
+                                <a href="{{ url('removeCart/'.$item['item']['id']) }}" class="btn btn-danger">Remove Item</a>
                             </div>
                         </div>
                     @endforeach
