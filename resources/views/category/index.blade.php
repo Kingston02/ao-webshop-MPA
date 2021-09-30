@@ -20,15 +20,6 @@
                 
 
             @endforeach
-
-            <form action='/filter' method='GET'>
-                <select name="categoryId" id="categoryId">
-                        @foreach(App\Category::all() as $cat) 
-                            <option value="{{ $cat['id'] }}">{{ $cat['id'] }}</option>
-                        @endforeach
-                </select>
-                <button type='submit'>Filter</button>
-            </form>
             
         </div>
     </div>

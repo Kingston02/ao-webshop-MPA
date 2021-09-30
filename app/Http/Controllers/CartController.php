@@ -28,7 +28,7 @@ class CartController extends Controller
         $product = Products::find($productId);
         $cart =  new Cart($request);
         $cart->addToCart($product, $product->id);
-        return redirect()->route('home');
+        return redirect()->to('cart');
     }
 
     /**
@@ -52,7 +52,7 @@ class CartController extends Controller
         $productId = $request->input('productId');
         $cart = new Cart($request);
         $cart->updateCart($productId,$qty);
-        return redirect()->route('home');
+        return redirect()->to('cart');
     }
 
     /**
@@ -61,7 +61,7 @@ class CartController extends Controller
     public function removeCart(Request $request, $productId){
         $cart = new Cart($request);
         $cart->removeCart($productId);
-        return redirect()->route('home');
+        return redirect()->to('cart');
     }
  
     #public function filter($catId){
