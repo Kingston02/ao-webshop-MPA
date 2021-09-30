@@ -26,7 +26,6 @@ class CartController extends Controller
         }
         $cart = new Cart($request);
         $cart->getCart($cart->items, $cart->totalPrice);
-        #dd($cart->items);
         return view('cart.index', ['items' => $cart->items, 'priceTot' => $cart->totalPrice]);
     }
 
