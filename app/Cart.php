@@ -112,8 +112,6 @@ class Cart
 
     public function removeCart($productId){
         
-        session()->flush();
-        
         print_r(session()->all());
         return;
     }
