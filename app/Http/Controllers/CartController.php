@@ -39,7 +39,7 @@ class CartController extends Controller
         $cart->updateCart($productId,$qty);
         return redirect()->to('cart');
     }
-
+    
     /**
      * removeCart function removes a specifically product trough the product id 
      */

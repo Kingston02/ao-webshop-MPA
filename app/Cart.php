@@ -109,7 +109,7 @@ class Cart
         $this->totalPrice -= $itemTotPrice;
         unset($this->items[$productId]);
         $this->sessionQty -= 1;
-
+        
         $this->save();
     }
 }
