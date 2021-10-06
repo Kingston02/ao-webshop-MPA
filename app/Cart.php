@@ -112,4 +112,13 @@ class Cart
         
         $this->save();
     }
+
+    /**
+     * Get the items that 
+     */
+    public function checkout(){
+        dd($oldCart);
+        return ['items' => $products, 'priceTot' => $totalPrice];
+    }
+
 }

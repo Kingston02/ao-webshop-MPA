@@ -31,6 +31,7 @@
                     <hr>
                     <br>
                     <h3>Totaal prijs: €{{ $priceTot }},-</h3>
+                    <a href="{{ url('checkout/'.$item['item']['id']) }}" class="btn btn-warning">Checkout</a>
                     @else
                     <h3>Voeg producten toe</h3>
                     <a class="btn btn-primary" href='/category'>Producten overzicht</a>

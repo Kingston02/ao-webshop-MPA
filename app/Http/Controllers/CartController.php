@@ -48,4 +48,13 @@ class CartController extends Controller
         $cart->removeCart($productId);
         return redirect()->to('cart');
     }
+
+    /**
+     * checkout function go to checkout page
+     */
+    public function checkout(Request $request){
+        $cart = new Cart($request);
+        $cart->checkout();
+        return redirect()->to('checkout');
+    }
 }
