@@ -11,7 +11,7 @@
                             <div class="card my-4" style='padding:40px;'>
                                 <ul>
                                     <img src="{{ $item['item']['image_url'] }}" style='width:100px;position:relative;'>
-                                    <h1>{{ $item['item']['title'] }}</h1>
+                                    <h2>{{ $item['item']['name'] }}</h2>
                                     <p>{{ $item['item']['description'] }}</p>
                                     <p>€{{ $item['item']['price'] }},-</p>
                                 </ul>
@@ -30,8 +30,8 @@
                     
                     <hr>
                     <br>
-                    <h3>Totaal prijs: €{{ $priceTot }},-</h3>
-                    <a href="{{ url('checkout/'.$item['item']['id']) }}" class="btn btn-warning">Checkout</a>
+                    <h3>Total price: €{{ $priceTot }},-</h3>
+                    <a href="{{ url('checkout') }}" class="btn btn-warning">Checkout</a>
                     @else
                     <h3>Voeg producten toe</h3>
                     <a class="btn btn-primary" href='/category'>Producten overzicht</a>

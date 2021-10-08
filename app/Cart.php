@@ -117,7 +117,14 @@ class Cart
      * Get the items that 
      */
     public function checkout(){
-        dd($oldCart);
+        if(count($itemsId) > 0){
+            $productIdArr = [];
+            foreach(array_keys($itemsId) as $productId){
+                array_push($productIdArr, $productId);
+            }
+            $products = Product::whereIn('id', $productIdArr)->get();
+        }
+        
         return ['items' => $products, 'priceTot' => $totalPrice];
     }
 
