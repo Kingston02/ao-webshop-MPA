@@ -22,7 +22,15 @@ class CreateSessionsTable extends Migration
             $table->integer('last_activity');
         });
     }
-
+    public function order()
+    {
+        $table->increments('id');
+        $table->integer('user_id')->nullable(false);
+        $table->text('cart');
+        $table->text('address');
+        $table->string('name')->default('');
+        $table->timestamps();
+    }
     /**
      * Reverse the migrations.
      *

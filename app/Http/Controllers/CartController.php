@@ -60,14 +60,5 @@ class CartController extends Controller
         $cart->getCart($cart->items, $cart->totalPrice);
         return view('checkout.index', ['items' => $cart->items, 'priceTot' => $cart->totalPrice]);
     }
-
-    /**
-     * order submit function stores the order in the DB and redirect to orderPlaced page
-     */
-    public function orderSubmit(Request $request){
-        $cart = new Cart($request);
-        $cart->checkout();
-        return redirect()->to('orderPlaced');
-    }
     
 }
