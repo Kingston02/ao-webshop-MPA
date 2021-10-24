@@ -3,9 +3,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cart;
 use App\Products;
+use App\Order;
+use Auth;
 
 class CartController extends Controller
 {
+
+    
 
     /**
      * addToCart function send request and productId
@@ -58,7 +62,24 @@ class CartController extends Controller
         }
         $cart = new Cart($request);
         $cart->getCart($cart->items, $cart->totalPrice);
+        Auth::user();
         return view('checkout.index', ['items' => $cart->items, 'priceTot' => $cart->totalPrice]);
+    }
+
+    /**
+     * order submit function stores the order in the DB and redirect to orderPlaced page
+     */
+    public function orderSubmit(Request $request){
+        $cart = new Cart($request);
+        $order = new Order();
+        $order->cart = serialize($cart);
+        $order->address = $request->input('address');
+        $order->name = $request->input('name');
+        $order->save();
+
+        $request->session()->forget('cart');
+
+        return redirect()->route('home');
     }
     
 }

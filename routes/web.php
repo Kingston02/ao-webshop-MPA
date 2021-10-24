@@ -33,7 +33,7 @@ Route::get('/filter/{categoryId}', 'ProductsController@filter');
 
 Route::get('/checkout', 'CartController@checkout');
 
-Route::get('/order-submit', 'CartController@orderSubmit')->name('order-submit');;
+Route::get('/order-submit', 'CartController@orderSubmit')->name('order-submit');
 
 Route::get('/update-cart', 'CartController@updateCart')->name('update-cart');
 

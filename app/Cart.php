@@ -127,4 +127,5 @@ class Cart
         
         return ['items' => $products, 'priceTot' => $totalPrice];
     }
+    
 }
